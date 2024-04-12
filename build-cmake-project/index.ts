@@ -28,3 +28,5 @@ export async function run() {
         setFailed("Unable to build");
     }
 }
+
+void run();
