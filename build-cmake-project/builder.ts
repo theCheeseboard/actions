@@ -3,6 +3,15 @@ import * as path from "node:path";
 import * as os from "node:os";
 import {exec} from "@actions/exec";
 import * as fs from "node:fs/promises";
+import crypto from "crypto";
+import {restoreCache, saveCache} from "@actions/cache";
+
+function calculateSHA256(inputString: string) {
+    const hashSum = crypto.createHash('sha256');
+    hashSum.update(inputString);
+
+    return hashSum.digest('hex');
+}
 
 export async function build(options: BuilderOptions) {
     const installFolder = path.join(os.homedir(), "install", options.arch.replace(";", "_"));
@@ -33,9 +42,26 @@ export async function build(options: BuilderOptions) {
     };
 
     const cmakeArgs = [
+        "-B", buildFolder, "-S", sourceFolder,
         ...Object.keys(cmakeDefs).map(def => `-D${def}=${cmakeDefs[def]}`)
     ];
-    await exec("cmake", ["-B", buildFolder, "-S", sourceFolder, ...cmakeArgs]);
-    await exec("cmake", ["--build", buildFolder]);
+
+    // Cache build folder
+    const cacheKey = `cmake-${options.project}@${options.commitish}-${options.arch}-${calculateSHA256(buildFolder)}-${calculateSHA256(cmakeArgs.join(" "))}`;
+
+    let needBuild = true;
+    if (await restoreCache([buildFolder], cacheKey)) {
+        // The cache was restored successfully, so skip the build
+        console.log("Cache restore successful - skipping build step");
+        needBuild = false;
+    }
+
+    if (needBuild) {
+        await exec("cmake", cmakeArgs);
+        await exec("cmake", ["--build", buildFolder]);
+    }
+
     await exec("cmake", ["--install", buildFolder]);
+
+    await saveCache([buildFolder], cacheKey);
 }
