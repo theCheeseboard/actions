@@ -17,10 +17,10 @@ jobs:
           echo "gitSha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '20'
           cache: "npm"
       - name: "Install NPM dependencies"
-        run: npm ci
+        run: pnpm install
       - name: "Build actions"
         run: ./build.sh
       - uses: actions/upload-artifact@v3
