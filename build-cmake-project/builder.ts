@@ -34,6 +34,16 @@ export async function build(options: BuilderOptions) {
         cwd: sourceFolder
     })
 
+    let headCommit = "";
+    await exec("git", ["rev-parse", "HEAD"], {
+        listeners: {
+            stdout: (data) => headCommit += data.toString()
+        }
+    })
+    headCommit = headCommit.trim();
+
+    console.log(`Cloned ${options.project} at commit ${headCommit}`);
+
     // Init CMake
     const cmakeDefs: Record<string, string> = {
         "CMAKE_INSTALL_PREFIX": installFolder,
@@ -48,7 +58,7 @@ export async function build(options: BuilderOptions) {
     ];
 
     // Cache build folder
-    const cacheKey = `cmake-${options.project}@${options.commitish}-${options.arch}-${calculateSHA256(buildFolder)}-${calculateSHA256(cmakeArgs.join(" "))}`;
+    const cacheKey = `cmake-${headCommit}-${options.project}@${options.commitish}-${options.arch}-${calculateSHA256(buildFolder)}-${calculateSHA256(cmakeArgs.join(" "))}`;
 
     let needBuild = true;
     if (await restoreCache([buildFolder], cacheKey)) {
