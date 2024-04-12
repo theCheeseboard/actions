@@ -5,7 +5,7 @@ import {exec} from "@actions/exec";
 import * as fs from "node:fs/promises";
 
 export async function build(options: BuilderOptions) {
-    const installFolder = path.join(os.homedir(), "install");
+    const installFolder = path.join(os.homedir(), "install", options.arch);
     const installLibFolder = path.join(installFolder, "lib");
     const projectFolder = path.join(os.homedir(), "git", options.project);
     const sourceFolder = path.join(projectFolder, "source", options.commitish);
@@ -29,11 +29,13 @@ export async function build(options: BuilderOptions) {
         "CMAKE_INSTALL_PREFIX": installFolder,
         "CMAKE_PREFIX_PATH": installLibFolder,
         "CMAKE_INSTALL_RPATH": installLibFolder,
+        "CMAKE_OSX_ARCHITECTURES": options.arch
     };
 
     const cmakeArgs = [
         ...Object.keys(cmakeDefs).map(def => `-D${def}=${cmakeDefs[def]}`)
     ];
     await exec("cmake", ["-B", buildFolder, "-S", sourceFolder, ...cmakeArgs]);
+    await exec("cmake", ["--build", buildFolder]);
     await exec("cmake", ["--install", buildFolder]);
 }

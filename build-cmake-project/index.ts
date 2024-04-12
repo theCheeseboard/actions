@@ -1,5 +1,6 @@
 import {getInput, setFailed} from "@actions/core";
 import {build} from "./builder";
+import * as os from "node:os";
 
 try {
     const project = getInput("project");
@@ -16,7 +17,7 @@ try {
 
     if (arch === "default") {
         // Use the host arch
-        options.arch = "x86";
+        options.arch = os.platform() == "darwin" ? "arm64;x86_64" : "x86";
     }
 
     if (extraCmakeArgs) options.extraCmakeArgs = extraCmakeArgs;

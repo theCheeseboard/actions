@@ -14,7 +14,7 @@ for dir in *; do
             tsc
             rm -rf "$OUTPUT/$dir"
             mkdir -p "$OUTPUT/$dir/dist"
-            esbuild tsc/index.js --bundle --platform=node --outfile="$OUTPUT/$dir/dist/index.js" --format=esm --minify
+            esbuild tsc/index.js --bundle --platform=node --outfile="$OUTPUT/$dir/dist/index.mjs" --format=esm --minify
             cp action.yml "$OUTPUT/$dir"
 
             if [ -f ".resources" ]; then
