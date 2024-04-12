@@ -1,4 +1,5 @@
 import {getInput, setFailed} from "@actions/core";
+import {build} from "./builder";
 
 try {
     const project = getInput("project");
@@ -9,7 +10,7 @@ try {
     let options = {
         project: project,
         arch: arch,
-        commitish: "",
+        commitish: commitish,
         extraCmakeArgs: ""
     };
 
@@ -18,10 +19,9 @@ try {
         options.arch = "x86";
     }
 
-    if (commitish) options.commitish = commitish;
     if (extraCmakeArgs) options.extraCmakeArgs = extraCmakeArgs;
 
-    // await builder(options);
+    await build(options);
 } catch (error) {
     setFailed("Unable to build");
 }

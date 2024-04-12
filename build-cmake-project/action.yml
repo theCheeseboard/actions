@@ -6,7 +6,8 @@ inputs:
     required: true
   commitish:
     description: 'Tag/branch/etc. to build'
-    required: false
+    required: true
+    default: "main"
   extra-cmake-args:
     description: 'Extra CMake args for project'
     required: false

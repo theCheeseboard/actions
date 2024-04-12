@@ -13,8 +13,8 @@ for dir in *; do
             pushd "$dir"
             tsc
             rm -rf "$OUTPUT/$dir"
-            mkdir -p "$OUTPUT/$dir"
-            mv tsc "$OUTPUT/$dir/dist"
+            mkdir -p "$OUTPUT/$dir/dist"
+            esbuild tsc/index.js --bundle --platform=node --outfile="$OUTPUT/$dir/dist/index.js" --format=esm --minify
             cp action.yml "$OUTPUT/$dir"
 
             if [ -f ".resources" ]; then
