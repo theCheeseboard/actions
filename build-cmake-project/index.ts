@@ -19,7 +19,12 @@ export async function run() {
 
         if (project == ".") {
             options.project = `${context.repo.owner}/${context.repo.repo}`;
-            options.commitish = context.ref;
+
+            let ref = context.ref;
+            if (ref.startsWith("refs/heads")) {
+                ref = ref.substring(10);
+            }
+            options.commitish = ref;
         }
 
         if (arch === "default") {
