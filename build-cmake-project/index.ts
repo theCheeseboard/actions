@@ -21,8 +21,8 @@ export async function run() {
             options.project = `${context.repo.owner}/${context.repo.repo}`;
 
             let ref = context.ref;
-            if (ref.startsWith("refs/heads")) {
-                ref = ref.substring(10);
+            if (ref.startsWith("refs/heads/")) {
+                ref = ref.substring(11);
             }
             options.commitish = ref;
         }
