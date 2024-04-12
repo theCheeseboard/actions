@@ -14,8 +14,10 @@ for dir in *; do
             tsc
             rm -rf "$OUTPUT/$dir"
             mkdir -p "$OUTPUT/$dir/dist"
-            esbuild tsc/index.js --bundle --platform=node --outfile="$OUTPUT/$dir/dist/index.mjs" --format=esm --minify
+            esbuild tsc/index.js --bundle --platform=node --outfile="$OUTPUT/$dir/dist/index.js" --minify
             cp action.yml "$OUTPUT/$dir"
+            rm -rf tsc
+
 
             if [ -f ".resources" ]; then
                 while read -r resource; do
