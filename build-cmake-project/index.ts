@@ -1,6 +1,7 @@
 import {getInput, setFailed} from "@actions/core";
 import {build} from "./builder";
 import * as os from "node:os";
+import {context} from "@actions/github";
 
 export async function run() {
     try {
@@ -15,6 +16,11 @@ export async function run() {
             commitish: commitish,
             extraCmakeArgs: ""
         };
+
+        if (project == ".") {
+            options.project = context.repo.repo;
+            options.commitish = context.ref;
+        }
 
         if (arch === "default") {
             // Use the host arch
