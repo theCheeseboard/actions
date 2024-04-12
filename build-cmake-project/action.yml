@@ -1,0 +1,23 @@
+name: 'Build Project'
+description: 'Build and install a libcontemporary project'
+inputs:
+  project:
+    description: 'Project slug to build'
+    required: true
+  commitish:
+    description: 'Tag/branch/etc. to build'
+    required: false
+  extra-cmake-args:
+    description: 'Extra CMake args for project'
+    required: false
+    default: ''
+  arch:
+    description: 'Architecture of build'
+    required: false
+    default: 'default'
+outputs:
+  install-prefix:
+    description: "Path to installed files"
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
