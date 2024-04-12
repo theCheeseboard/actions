@@ -2,7 +2,7 @@ name: "Build Actions"
 on:
   push:
     branches:
-      - "actions-sources"
+      - "main"
 
 jobs:
   build:
