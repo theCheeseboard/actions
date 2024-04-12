@@ -21,6 +21,8 @@ outputs:
     description: "Path to build directory"
   install-directory:
     description: "Path to install directory"
+  source-directory:
+    description: "Path to source directory"
 runs:
   using: 'node20'
   main: 'dist/index.js'

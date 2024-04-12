@@ -78,6 +78,7 @@ export async function build(options: BuilderOptions) {
 
     await saveCache([buildFolder], cacheKey);
 
+    setOutput("source-directory", sourceFolder)
     setOutput("build-directory", buildFolder)
     setOutput("install-directory", installFolder);
 }
