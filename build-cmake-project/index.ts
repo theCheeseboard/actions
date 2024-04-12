@@ -18,7 +18,7 @@ export async function run() {
         };
 
         if (project == ".") {
-            options.project = context.repo.repo;
+            options.project = `${context.repo.owner}/${context.repo.repo}`;
             options.commitish = context.ref;
         }
 
