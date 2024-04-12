@@ -15,6 +15,7 @@ jobs:
           echo "gitName=$(git log --format='%an' HEAD^!)" >> $GITHUB_OUTPUT
           echo "gitEmail=$(git log --format='%ae' HEAD^!)" >> $GITHUB_OUTPUT
           echo "gitSha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+      - uses: pnpm/action-setup@v3
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
