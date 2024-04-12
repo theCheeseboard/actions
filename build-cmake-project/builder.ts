@@ -5,11 +5,11 @@ import {exec} from "@actions/exec";
 import * as fs from "node:fs/promises";
 
 export async function build(options: BuilderOptions) {
-    const installFolder = path.join(os.homedir(), "install", options.arch);
+    const installFolder = path.join(os.homedir(), "install", options.arch.replace(";", "_"));
     const installLibFolder = path.join(installFolder, "lib");
     const projectFolder = path.join(os.homedir(), "git", options.project);
     const sourceFolder = path.join(projectFolder, "source", options.commitish);
-    const buildFolder = path.join(projectFolder, "build", options.arch, options.commitish);
+    const buildFolder = path.join(projectFolder, "build", options.arch.replace(";", "_"), options.commitish);
 
     await fs.mkdir(sourceFolder, {
         recursive: true
