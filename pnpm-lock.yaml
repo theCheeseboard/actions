@@ -23,9 +23,6 @@ devDependencies:
   esbuild:
     specifier: ^0.20.2
     version: 0.20.2
-  git-clone:
-    specifier: ^0.2.0
-    version: 0.2.0
   typescript:
     specifier: ^5.4.5
     version: 5.4.5
@@ -638,10 +635,6 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
-    dev: true
-
-  /git-clone@0.2.0:
-    resolution: {integrity: sha512-1UAkEPIFbyjHaddljUKvPhhLRnrKaImT71T7rdvSvWLXw95nLdhdi6Qmlx0KOWoV1qqvHGLq5lMLJEZM0JXk8A==}
     dev: true
 
   /mime-db@1.52.0:
