@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: "Save Git information"
@@ -15,7 +15,7 @@ jobs:
           echo "gitName=$(git log --format='%an' HEAD^!)" >> $GITHUB_OUTPUT
           echo "gitEmail=$(git log --format='%ae' HEAD^!)" >> $GITHUB_OUTPUT
           echo "gitSha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
-#      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v3
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
