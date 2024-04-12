@@ -17,8 +17,10 @@ inputs:
     required: false
     default: 'default'
 outputs:
-  install-prefix:
-    description: "Path to installed files"
+  build-directory:
+    description: "Path to build directory"
+  install-directory:
+    description: "Path to install directory""
 runs:
   using: 'node20'
   main: 'dist/index.js'
