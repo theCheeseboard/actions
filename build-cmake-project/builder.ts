@@ -38,7 +38,8 @@ export async function build(options: BuilderOptions) {
     await exec("git", ["rev-parse", "HEAD"], {
         listeners: {
             stdout: (data) => headCommit += data.toString()
-        }
+        },
+        cwd: sourceFolder
     })
     headCommit = headCommit.trim();
 
