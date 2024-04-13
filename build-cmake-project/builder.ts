@@ -50,7 +50,8 @@ export async function build(options: BuilderOptions) {
         "CMAKE_INSTALL_PREFIX": installFolder,
         "CMAKE_PREFIX_PATH": installLibFolder,
         "CMAKE_INSTALL_RPATH": installLibFolder,
-        "CMAKE_OSX_ARCHITECTURES": options.arch
+        "CMAKE_OSX_ARCHITECTURES": options.arch,
+        "CMAKE_BUILD_TYPE": "release"
     };
 
     const cmakeArgs = [
