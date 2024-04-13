@@ -56,6 +56,7 @@ export async function build(options: BuilderOptions) {
 
     const cmakeArgs = [
         "-B", buildFolder, "-S", sourceFolder,
+        "-GNinja",
         ...Object.keys(cmakeDefs).map(def => `-D${def}=${cmakeDefs[def]}`),
         ...options.extraCmakeArgs.split(" ").filter(x => x != ""),
     ];
