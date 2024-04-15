@@ -11,7 +11,7 @@ export async function deployMac() {
     const buildFolder = getInput("buildFolder");
     const installFolder = getInstallFolder(resolveArch(getInput("arch")));
 
-    const deployAppGlobber = await glob.create(path.join(buildFolder, "**", "*.app"), {
+    const deployAppGlobber = await glob.create(`${buildFolder}/**/*.app`, {
         matchDirectories: true,
         implicitDescendants: true
     });
