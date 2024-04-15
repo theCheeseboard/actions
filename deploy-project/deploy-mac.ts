@@ -4,14 +4,22 @@ import {getInput, setFailed} from "@actions/core";
 import * as path from "node:path";
 import * as glob from "@actions/glob"
 import artifact from "@actions/artifact"
+import * as fs from "node:fs/promises";
 
 export async function deployMac() {
     const sourceFolder = getInput("sourceFolder");
     const buildFolder = getInput("buildFolder");
     const installFolder = getInstallFolder(resolveArch(getInput("arch")));
 
-    const deployAppGlobber = await glob.create(path.join(buildFolder, "**", "*.app"));
-    const appGlobResult = await deployAppGlobber.glob();
+    const deployAppGlobber = await glob.create(path.join(buildFolder, "**", "*.app"), {
+        matchDirectories: true
+    });
+    const appGlobResult: string[] = [];
+
+    for await (const result of deployAppGlobber.globGenerator()) {
+        const stat = await fs.stat(result);
+        if (stat.isDirectory()) appGlobResult.push(result);
+    }
 
     if (appGlobResult.length != 1) {
         console.log(`App bundles found: ${appGlobResult.join(", ")}`);

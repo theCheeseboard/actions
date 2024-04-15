@@ -22,7 +22,7 @@ export function getSourceFolder(project: string, commitish: string) {
 }
 
 export function getBuildFolder(project: string, arch: string, commitish: string) {
-    return path.join(project, "build", arch.replace(";", "_"), commitish);
+    return path.join(getProjectFolder(project), "build", arch.replace(";", "_"), commitish);
 }
 
 export function getFolders(arch: string, project: string, commitish: string) {
