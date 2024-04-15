@@ -13,7 +13,7 @@ export async function deployMac() {
 
     const deployAppGlobber = await glob.create(`${buildFolder}/**/*.app`, {
         matchDirectories: true,
-        implicitDescendants: true
+        implicitDescendants: false
     });
     const appGlobResult: string[] = [];
 
