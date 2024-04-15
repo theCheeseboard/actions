@@ -6,7 +6,7 @@ import * as fs from "node:fs/promises";
 import crypto from "crypto";
 import {restoreCache, saveCache} from "@actions/cache";
 import {setOutput} from "@actions/core";
-import {getFolders} from "../common";
+import {getFolders} from "../common/common";
 
 function calculateSHA256(inputString: string) {
     const hashSum = crypto.createHash('sha256');

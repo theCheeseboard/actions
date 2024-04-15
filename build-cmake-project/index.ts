@@ -1,6 +1,5 @@
 import {getInput, setFailed} from "@actions/core";
 import {build} from "./builder";
-import * as os from "node:os";
 import {context} from "@actions/github";
 import {resolveArch} from "../common";
 
