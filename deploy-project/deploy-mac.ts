@@ -7,8 +7,8 @@ import artifact from "@actions/artifact"
 import * as fs from "node:fs/promises";
 
 export async function deployMac() {
-    const sourceFolder = getInput("sourceFolder");
-    const buildFolder = getInput("buildFolder");
+    const sourceFolder = getInput("sourceDirectory");
+    const buildFolder = getInput("buildDirectory");
     const installFolder = getInstallFolder(resolveArch(getInput("arch")));
 
     const deployAppGlobber = await glob.create(`${buildFolder}/**/*.app`, {
