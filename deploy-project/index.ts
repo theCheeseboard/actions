@@ -17,7 +17,7 @@ export async function run() {
                 setFailed(`Platform ${os.platform()} not supported`);
         }
     } catch (error) {
-        setFailed("Unable to deploy");
+        setFailed(`Unable to deploy: ${error}`);
     }
 }
 
