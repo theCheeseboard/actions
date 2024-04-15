@@ -6,6 +6,7 @@ import * as fs from "node:fs/promises";
 import crypto from "crypto";
 import {restoreCache, saveCache} from "@actions/cache";
 import {setOutput} from "@actions/core";
+import {getFolders} from "../common";
 
 function calculateSHA256(inputString: string) {
     const hashSum = crypto.createHash('sha256');
@@ -15,11 +16,13 @@ function calculateSHA256(inputString: string) {
 }
 
 export async function build(options: BuilderOptions) {
-    const installFolder = path.join(os.homedir(), "install", options.arch.replace(";", "_"));
+    const {
+        install: installFolder,
+        source: sourceFolder,
+        build: buildFolder
+    } = getFolders(options.arch, options.project, options.commitish)
+
     const installLibFolder = path.join(installFolder, "lib");
-    const projectFolder = path.join(os.homedir(), "git", options.project);
-    const sourceFolder = path.join(projectFolder, "source", options.commitish);
-    const buildFolder = path.join(projectFolder, "build", options.arch.replace(";", "_"), options.commitish);
 
     await fs.mkdir(sourceFolder, {
         recursive: true

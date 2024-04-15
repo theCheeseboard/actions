@@ -2,6 +2,7 @@ import {getInput, setFailed} from "@actions/core";
 import {build} from "./builder";
 import * as os from "node:os";
 import {context} from "@actions/github";
+import {resolveArch} from "../common";
 
 export async function run() {
     try {
@@ -12,7 +13,7 @@ export async function run() {
 
         let options = {
             project: project,
-            arch: arch,
+            arch: resolveArch(arch),
             commitish: commitish,
             extraCmakeArgs: ""
         };
@@ -25,11 +26,6 @@ export async function run() {
                 ref = ref.substring(11);
             }
             options.commitish = ref;
-        }
-
-        if (arch === "default") {
-            // Use the host arch
-            options.arch = os.platform() == "darwin" ? "arm64;x86_64" : "x86";
         }
 
         if (extraCmakeArgs) options.extraCmakeArgs = extraCmakeArgs;

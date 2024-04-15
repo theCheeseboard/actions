@@ -18,7 +18,6 @@ for dir in *; do
             cp action.yml "$OUTPUT/$dir"
             rm -rf tsc
 
-
             if [ -f ".resources" ]; then
                 while read -r resource; do
                     cp "$resource" "$OUTPUT/$dir/dist"
