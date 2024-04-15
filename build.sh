@@ -14,7 +14,7 @@ for dir in *; do
             tsc
             rm -rf "$OUTPUT/$dir"
             mkdir -p "$OUTPUT/$dir/dist"
-            esbuild tsc/$dir/index.js --bundle --platform=node --outfile="$OUTPUT/$dir/dist/index.js" --minify
+            esbuild tsc/$dir/index.js --bundle --platform=node --outfile="$OUTPUT/$dir/dist/index.js" --minify --keep-names
             cp action.yml "$OUTPUT/$dir"
             rm -rf tsc
 
