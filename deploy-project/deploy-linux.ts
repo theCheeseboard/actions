@@ -33,15 +33,15 @@ export async function deployLinux() {
     ]);
 
     // Locate the .appimage file
-    const appimageGlobber = await glob.create(`*.appimage`, {
+    const appimageGlobber = await glob.create(`*.AppImage`, {
         matchDirectories: false,
         implicitDescendants: false
     });
     const appImages = await appimageGlobber.glob();
 
     if (appImages.length != 1) {
-        console.log("Unable to locate created .appimage file");
-        throw new Error("Unable to locate created .appimage file");
+        console.log("Unable to locate created .AppImage file");
+        throw new Error("Unable to locate created .AppImage file");
     }
 
     // Upload artifact
