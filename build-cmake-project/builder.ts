@@ -20,7 +20,7 @@ export async function build(options: BuilderOptions) {
         install: installFolder,
         source: sourceFolder,
         build: buildFolder
-    } = getFolders(options.arch, options.project, options.commitish)
+    } = await getFolders(options.arch, options.project, options.commitish)
 
     const installLibFolder = path.join(installFolder, "lib");
 
