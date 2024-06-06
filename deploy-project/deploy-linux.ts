@@ -29,7 +29,8 @@ export async function deployLinux() {
         desktopFile,
         "-appimage",
         `-qmldir=${getInput("sourceDirectory")}`,
-        "-unsupported-allow-new-glibc"
+        "-unsupported-allow-new-glibc",
+        "-no-strip"
     ]);
 
     // Locate the .appimage file
