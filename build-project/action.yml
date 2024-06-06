@@ -1,0 +1,38 @@
+name: 'Build Project'
+description: 'Build and install a libcontemporary project'
+inputs:
+  project:
+    description: 'Project slug to build or "." to build current project'
+    required: true
+  commitish:
+    description: 'Tag/branch/etc. to build'
+    required: false
+  extra-cmake-args:
+    description: 'Extra CMake args for project'
+    required: false
+    default: ''
+  arch:
+    description: 'Architecture of build'
+    required: false
+    default: 'x64'
+outputs:
+  install-prefix:
+    description: "Path to installed files"
+runs:
+  using: 'composite'
+  steps:
+    - uses: theCheeseboard/actions/cpp-problem-matcher@actions
+      name: "Install C++ problem matcher"
+    - uses: vicr123/libcontemporary/build-project@actions
+      name: "Build QCoro"
+      with:
+        project: "danvratil/qcoro"
+        commitish: ${{ inputs.qcoroVersion }}
+        extra-cmake-args: "-DQCORO_BUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF"
+        arch: ${{ inputs.arch }}
+    - uses: vicr123/libcontemporary/build-project@actions
+      name: "Build libcontemporary"
+      with:
+        project: "vicr123/libcontemporary"
+        commitish: ${{ inputs.commitish }}
+        arch: ${{ inputs.arch }}
