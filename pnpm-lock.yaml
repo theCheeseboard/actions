@@ -6,8 +6,8 @@ settings:
 
 devDependencies:
   '@actions/artifact':
-    specifier: ^2.1.7
-    version: 2.1.7
+    specifier: ^2.1.8
+    version: 2.1.8
   '@actions/cache':
     specifier: ^3.2.4
     version: 3.2.4
@@ -35,8 +35,8 @@ devDependencies:
 
 packages:
 
-  /@actions/artifact@2.1.7:
-    resolution: {integrity: sha512-iIFsTPZnb182dBc+Is5v7ZqojC4ydO8Ru4/PD8Azg2diV//fdW3H6biEH/utUlNhwfOuHxZpC/QSQsU5KDEuuw==}
+  /@actions/artifact@2.1.8:
+    resolution: {integrity: sha512-kxgbllgF5f6mEdMeSW6WXlUbV1U77V9ECpA7LOYaY+Tm6RfXOm36EdXbpm+T9VPeaVqXK4QHLAgqay9GSyClgw==}
     dependencies:
       '@actions/core': 1.10.1
       '@actions/github': 5.1.1
