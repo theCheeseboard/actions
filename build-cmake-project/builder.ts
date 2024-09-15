@@ -23,6 +23,7 @@ export async function build(options: BuilderOptions) {
     } = await getFolders(options.arch, options.project, options.commitish)
 
     const installLibFolder = path.join(installFolder, "lib");
+    const pkgconfigFolder = path.join(installFolder, "pkgconfig");
 
     await fs.mkdir(sourceFolder, {
         recursive: true
@@ -51,7 +52,7 @@ export async function build(options: BuilderOptions) {
     // Init CMake
     const cmakeDefs: Record<string, string> = {
         "CMAKE_INSTALL_PREFIX": installFolder,
-        "CMAKE_PREFIX_PATH": installLibFolder,
+        "CMAKE_PREFIX_PATH": [installLibFolder, pkgconfigFolder].join(";"),
         "CMAKE_INSTALL_RPATH": installLibFolder,
         "CMAKE_OSX_ARCHITECTURES": options.arch,
         "CMAKE_BUILD_TYPE": "Release"
