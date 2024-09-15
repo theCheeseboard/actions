@@ -23,7 +23,7 @@ export async function build(options: BuilderOptions) {
     } = await getFolders(options.arch, options.project, options.commitish)
 
     const installLibFolder = path.join(installFolder, "lib");
-    const pkgconfigFolder = path.join(installFolder, "pkgconfig");
+    const pkgconfigFolder = path.join(installLibFolder, "pkgconfig");
 
     await fs.mkdir(sourceFolder, {
         recursive: true
