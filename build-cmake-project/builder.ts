@@ -7,6 +7,7 @@ import crypto from "crypto";
 import {restoreCache, saveCache} from "@actions/cache";
 import {setOutput} from "@actions/core";
 import {getFolders} from "../common/common";
+import * as process from "node:process";
 
 function calculateSHA256(inputString: string) {
     const hashSum = crypto.createHash('sha256');
@@ -76,7 +77,12 @@ export async function build(options: BuilderOptions) {
     }
 
     if (needBuild) {
-        await exec("cmake", cmakeArgs);
+        await exec("cmake", cmakeArgs, {
+            env: {
+                ...process.env,
+                "PKG_CONFIG_PATH": pkgconfigFolder,
+            }
+        });
         await exec("cmake", ["--build", buildFolder]);
     }
 
