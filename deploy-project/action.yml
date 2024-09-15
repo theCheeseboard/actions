@@ -1,0 +1,16 @@
+name: 'Deploy Project'
+description: 'Deploy a libcontemporary project'
+inputs:
+  sourceDirectory:
+    description: Directory of the source project to deploy
+    required: true
+  buildDirectory:
+    description: Directory of the build to deploy
+    required: true
+  arch:
+    description: Architecture of build
+    required: false
+    default: 'default'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
