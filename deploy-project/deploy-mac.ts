@@ -34,7 +34,8 @@ export async function deployMac() {
     await exec("macdeployqt", [
         appBundle,
         `-qmlimport=${path.join(installFolder, "qml")}`,
-        `-qmldir=${sourceFolder}`
+        `-qmldir=${sourceFolder}`,
+        `-codesign=-`
     ]);
 
     const outputDmg = path.resolve(`${appName}.dmg`);
