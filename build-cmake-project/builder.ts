@@ -60,7 +60,7 @@ export async function build(options: BuilderOptions) {
     };
 
     if (options.useVcpkg) {
-        cmakeDefs["CMAKE_TOOLCHAIN_FILE"] = process.env["VCPKG_ROOT"] ?? process.env["VCPKG_INSTALLATION_ROOT"]!;
+        cmakeDefs["CMAKE_TOOLCHAIN_FILE"] = `${process.env["VCPKG_ROOT"] ?? process.env["VCPKG_INSTALLATION_ROOT"]}/scripts/buildsystems/vcpkg.cmake`;
     }
 
     const cmakeArgs = [
