@@ -16,6 +16,10 @@ inputs:
     description: 'Architecture of build'
     required: false
     default: 'default'
+  use-vcpkg:
+    description: "Whether to use vcpkg"
+    required: false
+    default: "false"
 outputs:
   build-directory:
     description: "Path to build directory"

@@ -9,12 +9,14 @@ export async function run() {
         const commitish = getInput("commitish");
         const extraCmakeArgs = getInput("extra-cmake-args");
         const arch = getInput("arch");
+        const useVcpkg = getInput("use-vcpkg");
 
         let options = {
             project: project,
             arch: resolveArch(arch),
             commitish: commitish,
-            extraCmakeArgs: ""
+            extraCmakeArgs: "",
+            useVcpkg: useVcpkg == "true" ? true : false
         };
 
         if (project == ".") {

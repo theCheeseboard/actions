@@ -59,6 +59,10 @@ export async function build(options: BuilderOptions) {
         "CMAKE_BUILD_TYPE": "Release"
     };
 
+    if (options.useVcpkg) {
+        cmakeDefs["CMAKE_TOOLCHAIN_FILE"] = process.env["VCPKG_ROOT"] ?? process.env["VCPKG_INSTALLATION_ROOT"]!;
+    }
+
     const cmakeArgs = [
         "-B", buildFolder, "-S", sourceFolder,
         "-GNinja",
